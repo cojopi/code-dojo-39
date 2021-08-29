@@ -15,6 +15,7 @@ class Song:
         'What a hog, to swallow a {}!',
         "I don't know how she swallowed a {}!",
     ]
+    funny_verses_quantity = len(funny_verses)
     new_line = "\n"
     new_paragraph = "\n\n"
     first_animal = ""
@@ -35,12 +36,8 @@ class Song:
         first_verse_lyrics += self.new_line + self.last_verse.format(animal)
         return first_verse_lyrics
 
-    def funny_verse_position_checker(self, funny_verse_position):
-        if funny_verse_position == len(self.funny_verses) - 1:
-            return 0
-        return funny_verse_position + 1
-
-    def funny_verse_lyrics_generator(self, animal, funny_verse_position):
+    def funny_verse_lyrics_generator(self, animal, position):
+        funny_verse_position = position - (self.funny_verses_quantity * (position // self.funny_verses_quantity))
         if funny_verse_position == 0:
             return self.new_line + self.funny_verses[funny_verse_position]
         else:
@@ -68,13 +65,11 @@ class Song:
 
     def middle_animals_lyrics_generator(self):
         middle_song = ""
-        funny_verse_position = 0
         for position, animal in enumerate(self.animals_for_song[1:self.amount_of_animals - 1]):
             middle_song += self.new_paragraph + self.first_verse.format(animal)
-            middle_song += self.funny_verse_lyrics_generator(animal, funny_verse_position)
+            middle_song += self.funny_verse_lyrics_generator(animal, position)
             middle_song += self.middle_verse_lyrics_generator(position)
             middle_song += self.new_line + self.last_verse.format(self.first_animal)
-            funny_verse_position = self.funny_verse_position_checker(funny_verse_position)
         return middle_song
 
     def final_verse_lyrics_generator(self, animal):
@@ -106,9 +101,9 @@ class Singer:
 
 
 singer = Singer()
-singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse'])
+#singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse'])
 # singer.choose_animals_for_song(['fly'])
-# singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse', 'monkey'])
+singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse', 'monkey'])
 #singer.choose_animals_for_song(
 #    ['perezoso', 'cucharacha', 'bb8', 'doraemon', 'marvinelmarciano', 'luisitocomunicia', 'messi', 'ibai'])
 print(singer.sing())
