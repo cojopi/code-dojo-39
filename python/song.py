@@ -35,17 +35,26 @@ class Song:
         else:
             return self.new_line + self.funny_verses[funny_verse_position].format(animal)
 
+    def middle_verse_lyrics_generator_loop(self, animals):
+        first_animal_in_verse = animals[1]
+        second_animal_in_verse = animals[0]
+        if (len(animals) == 2):
+            return self.new_line + self.first_middle_verse.format(first_animal_in_verse, second_animal_in_verse)
+        else:
+            return self.middle_verse_lyrics_generator_loop(animals[1:]) + self.new_line + self.first_middle_verse.format(first_animal_in_verse, second_animal_in_verse)
+
+    def last_middle_verse_lyrics_generator(self, animals):
+        first_animal_in_verse = animals[1]
+        second_animal_in_verse = animals[0]
+        return self.new_line + self.middle_verse.format(first_animal_in_verse, second_animal_in_verse)
+
     def middle_verse_lyrics_generator(self, amount_of_animals_for_use_in_middle_verse):
         middle_verse_lyrics = ""
         middle_verse_animals = self.animals_for_song[0:amount_of_animals_for_use_in_middle_verse + 2]
-        middle_verse_animals.reverse()
-        for position, first_animal_in_verse in enumerate(middle_verse_animals):
-            second_animal_in_verse = middle_verse_animals[position + 1]
-            if (position == amount_of_animals_for_use_in_middle_verse):
-                return middle_verse_lyrics + self.new_line + self.middle_verse.format(first_animal_in_verse,
-                                                                                      second_animal_in_verse)
-            middle_verse_lyrics += self.new_line + self.first_middle_verse.format(first_animal_in_verse,
-                                                                            second_animal_in_verse)
+        if (len(middle_verse_animals) > 2):
+            middle_verse_lyrics += self.middle_verse_lyrics_generator_loop(middle_verse_animals[1:])
+        middle_verse_lyrics += self.last_middle_verse_lyrics_generator(middle_verse_animals)
+        return middle_verse_lyrics
 
     def final_verse_lyrics_generator(self, animal):
         return self.final_verse_of_the_song.format(animal)
@@ -82,9 +91,9 @@ class Singer:
 
 
 singer = Singer()
-# singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse'])
+singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse'])
 # singer.choose_animals_for_song(['fly'])
 # singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse', 'monkey'])
-singer.choose_animals_for_song(
-    ['perezoso', 'cucharacha', 'bb8', 'doraemon', 'marvinelmarciano', 'luisitocomunicia', 'messi', 'ibai'])
+#singer.choose_animals_for_song(
+#    ['perezoso', 'cucharacha', 'bb8', 'doraemon', 'marvinelmarciano', 'luisitocomunicia', 'messi', 'ibai'])
 print(singer.sing())
