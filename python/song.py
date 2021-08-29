@@ -45,8 +45,7 @@ class Song:
         second_animal_in_verse = animals[0]
         if (len(animals) == 2):
             return self.new_line + self.first_middle_verse.format(first_animal_in_verse, second_animal_in_verse)
-        else:
-            return self.middle_verse_lyrics_generator_loop(animals[1:]) + self.new_line + self.first_middle_verse.format(first_animal_in_verse, second_animal_in_verse)
+        return self.middle_verse_lyrics_generator_loop(animals[1:]) + self.new_line + self.first_middle_verse.format(first_animal_in_verse, second_animal_in_verse)
 
     def last_middle_verse_lyrics_generator(self, animals):
         first_animal_in_verse = animals[1]
