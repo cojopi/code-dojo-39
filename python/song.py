@@ -57,9 +57,7 @@ class Song:
                 if position == 0:
                     final_song += self.first_verse_of_the_song.format(animal)
                     final_song += self.new_line + self.last_verse.format(animal)
-                elif position == amount_of_animals - 1:
-                    final_song += self.new_paragraph + self.final_verse_of_the_song.format(animal)
-                else:
+                elif position != amount_of_animals - 1:
                     final_song += self.new_paragraph + self.first_verse.format(animal)
                     final_song += self.funny_verse_lyrics_generator(animal, funny_verse_position)
                     if position > 1:
@@ -71,7 +69,7 @@ class Song:
                         funny_verse_position = 0
                     else:
                         funny_verse_position += 1
-            return final_song
+            return final_song + self.new_paragraph + self.final_verse_of_the_song.format(self.animals_for_song[amount_of_animals - 1])
 
 
 class Singer:
