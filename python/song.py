@@ -47,12 +47,14 @@ class Song:
             middle_verse_lyrics += self.new_line + self.first_middle_verse.format(first_animal_in_verse,
                                                                             second_animal_in_verse)
 
+    def final_verse_lyrics_generator(self, animal):
+        return self.final_verse_of_the_song.format(animal)
+
     def adapt_original_lyrics(self):
         first_animal = self.animals_for_song[0]
         amount_of_animals = len(self.animals_for_song)
         if amount_of_animals == 1:
-            final_verse_of_the_song = self.final_verse_of_the_song.format(first_animal)
-            return final_verse_of_the_song
+            return self.final_verse_lyrics_generator(first_animal)
         else:
             final_song = self.first_verse_lyrics_generator(first_animal)
             funny_verse_position = 0
@@ -65,7 +67,7 @@ class Song:
                     funny_verse_position = 0
                 else:
                     funny_verse_position += 1
-            return final_song + self.new_paragraph + self.final_verse_of_the_song.format(self.animals_for_song[amount_of_animals - 1])
+            return final_song + self.new_paragraph + self.final_verse_lyrics_generator(self.animals_for_song[amount_of_animals - 1])
 
 
 class Singer:
