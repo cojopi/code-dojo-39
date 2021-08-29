@@ -17,12 +17,18 @@ class Song:
     ]
     new_line = "\n"
     new_paragraph = "\n\n"
+    first_animal = ""
+    last_animal = ""
+    amount_of_animals = 0
 
     def __init__(self, animals_for_song):
         if not animals_for_song:
             self.animals_for_song = ORIGINAL_ANIMALS_OF_THE_SONG
         else:
             self.animals_for_song = animals_for_song
+        self.first_animal = self.animals_for_song[0]
+        self.last_animal = self.animals_for_song[-1]
+        self.amount_of_animals = len(self.animals_for_song)
     
     def first_verse_lyrics_generator(self, animal):
         first_verse_lyrics = self.first_verse_of_the_song.format(animal)
@@ -60,14 +66,14 @@ class Song:
         middle_verse_lyrics += self.last_middle_verse_lyrics_generator(middle_verse_animals)
         return middle_verse_lyrics
 
-    def middle_animals_lyrics_generator(self, first_animal, amount_of_animals):
+    def middle_animals_lyrics_generator(self):
         middle_song = ""
         funny_verse_position = 0
-        for position, animal in enumerate(self.animals_for_song[1:amount_of_animals - 1]):
+        for position, animal in enumerate(self.animals_for_song[1:self.amount_of_animals - 1]):
             middle_song += self.new_paragraph + self.first_verse.format(animal)
             middle_song += self.funny_verse_lyrics_generator(animal, funny_verse_position)
             middle_song += self.middle_verse_lyrics_generator(position)
-            middle_song += self.new_line + self.last_verse.format(first_animal)
+            middle_song += self.new_line + self.last_verse.format(self.first_animal)
             funny_verse_position = self.funny_verse_position_checker(funny_verse_position)
         return middle_song
 
@@ -75,13 +81,11 @@ class Song:
         return self.final_verse_of_the_song.format(animal)
 
     def adapt_original_lyrics(self):
-        first_animal = self.animals_for_song[0]
-        amount_of_animals = len(self.animals_for_song)
-        if amount_of_animals == 1:
-            return self.final_verse_lyrics_generator(first_animal)
-        final_song = self.first_verse_lyrics_generator(first_animal)
-        final_song += self.middle_animals_lyrics_generator(first_animal, amount_of_animals)
-        return final_song + self.new_paragraph + self.final_verse_lyrics_generator(self.animals_for_song[amount_of_animals - 1])
+        if self.amount_of_animals == 1:
+            return self.final_verse_lyrics_generator(self.first_animal)
+        final_song = self.first_verse_lyrics_generator(self.first_animal)
+        final_song += self.middle_animals_lyrics_generator()
+        return final_song + self.new_paragraph + self.final_verse_lyrics_generator(self.last_animal)
 
 
 class Singer:
