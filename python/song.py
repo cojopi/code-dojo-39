@@ -44,8 +44,7 @@ class Song:
             if (position == amount_of_animals_for_use_in_middle_verse):
                 return middle_verse_lyrics + self.new_line + self.middle_verse.format(first_animal_in_verse,
                                                                                       second_animal_in_verse)
-            else:
-                middle_verse_lyrics += self.new_line + self.first_middle_verse.format(first_animal_in_verse,
+            middle_verse_lyrics += self.new_line + self.first_middle_verse.format(first_animal_in_verse,
                                                                             second_animal_in_verse)
 
     def adapt_original_lyrics(self):
