@@ -63,13 +63,17 @@ class Song:
         middle_verse_lyrics += self.last_middle_verse_lyrics_generator(middle_verse_animals)
         return middle_verse_lyrics
 
+    def middle_animals_per_animal_lyrics_generator(self, animal, position):
+        middle_animal_song = self.new_paragraph + self.first_verse.format(animal)
+        middle_animal_song += self.funny_verse_lyrics_generator(animal, position)
+        middle_animal_song += self.middle_verse_lyrics_generator(position)
+        middle_animal_song += self.new_line + self.last_verse.format(self.first_animal)
+        return middle_animal_song
+
     def middle_animals_lyrics_generator(self):
         middle_song = ""
         for position, animal in enumerate(self.animals_for_song[1:self.amount_of_animals - 1]):
-            middle_song += self.new_paragraph + self.first_verse.format(animal)
-            middle_song += self.funny_verse_lyrics_generator(animal, position)
-            middle_song += self.middle_verse_lyrics_generator(position)
-            middle_song += self.new_line + self.last_verse.format(self.first_animal)
+            middle_song += self.middle_animals_per_animal_lyrics_generator(animal, position)
         return middle_song
 
     def final_verse_lyrics_generator(self, animal):
