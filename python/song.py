@@ -23,6 +23,11 @@ class Song:
             self.animals_for_song = ORIGINAL_ANIMALS_OF_THE_SONG
         else:
             self.animals_for_song = animals_for_song
+    
+    def first_verse_lyrics_generator(self, animal):
+        first_verse_lyrics = self.first_verse_of_the_song.format(animal)
+        first_verse_lyrics += self.new_line + self.last_verse.format(animal)
+        return first_verse_lyrics
 
     def funny_verse_lyrics_generator(self, animal, funny_verse_position):
         if funny_verse_position == 0:
@@ -53,8 +58,7 @@ class Song:
             funny_verse_position = 0
             for position, animal in enumerate(self.animals_for_song):
                 if position == 0:
-                    final_song += self.first_verse_of_the_song.format(animal)
-                    final_song += self.new_line + self.last_verse.format(animal)
+                    final_song += self.first_verse_lyrics_generator(animal)
                 elif position != amount_of_animals - 1:
                     final_song += self.new_paragraph + self.first_verse.format(animal)
                     final_song += self.funny_verse_lyrics_generator(animal, funny_verse_position)
