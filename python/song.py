@@ -23,11 +23,11 @@ class Song:
             self.animals_for_song = animals_for_song
 
     def adapt_original_lyrics(self):
-        if len(self.animals_for_song) == 1:
+        amount_of_animals = len(self.animals_for_song)
+        if amount_of_animals == 1:
             final_verse_of_the_song = self.final_verse_of_the_song.format(self.animals_for_song[0])
             return final_verse_of_the_song
         else:
-            amount_of_animals = len(self.animals_for_song)
             final_song = ""
             funny_verse_position = 0
             for position, animal in enumerate(self.animals_for_song):
