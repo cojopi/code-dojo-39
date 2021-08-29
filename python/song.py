@@ -38,10 +38,7 @@ class Song:
 
     def funny_verse_lyrics_generator(self, animal, position):
         funny_verse_position = position - (self.funny_verses_quantity * (position // self.funny_verses_quantity))
-        if funny_verse_position == 0:
-            return self.new_line + self.funny_verses[funny_verse_position]
-        else:
-            return self.new_line + self.funny_verses[funny_verse_position].format(animal)
+        return self.new_line + self.funny_verses[funny_verse_position].format(animal)
 
     def middle_verse_lyrics_generator_loop(self, animals):
         first_animal_in_verse = animals[1]
