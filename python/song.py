@@ -24,6 +24,12 @@ class Song:
         else:
             self.animals_for_song = animals_for_song
 
+    def funny_verse_lyrics_generator(self, animal, funny_verse_position):
+        if funny_verse_position == 0:
+            return self.new_line + self.funny_verses[funny_verse_position]
+        else:
+            return self.new_line + self.funny_verses[funny_verse_position].format(animal)
+
     def middle_verse_lyrics_generator(self, amount_of_animals_for_use_in_middle_verse):
         middle_verse_lyrics = ""
         while amount_of_animals_for_use_in_middle_verse > 0:
@@ -55,10 +61,7 @@ class Song:
                     final_song += self.new_paragraph + self.final_verse_of_the_song.format(animal)
                 else:
                     final_song += self.new_paragraph + self.first_verse.format(animal)
-                    if funny_verse_position == 0:
-                        final_song += self.new_line + self.funny_verses[funny_verse_position]
-                    else:
-                        final_song += self.new_line + self.funny_verses[funny_verse_position].format(animal)
+                    final_song += self.funny_verse_lyrics_generator(animal, funny_verse_position)
                     if position > 1:
                         final_song += self.middle_verse_lyrics_generator(position)
                     else:
