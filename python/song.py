@@ -80,12 +80,15 @@ class Song:
     def final_verse_lyrics_generator(self, animal):
         return self.final_verse_of_the_song.format(animal)
 
-    def adapt_original_lyrics(self):
-        if self.amount_of_animals == 1:
-            return self.final_verse_lyrics_generator(self.first_animal)
+    def multiple_animal_song(self):
         final_song = self.first_verse_lyrics_generator(self.first_animal)
         final_song += self.middle_animals_lyrics_generator()
         return final_song + self.new_paragraph + self.final_verse_lyrics_generator(self.last_animal)
+
+    def adapt_original_lyrics(self):
+        if self.amount_of_animals == 1:
+            return self.final_verse_lyrics_generator(self.first_animal)
+        return self.multiple_animal_song()
 
 
 class Singer:
